@@ -28,6 +28,9 @@ tags: #questions #acting-ccna #unit-questions #subnetting #vlan
 6. 修改 [[Allowed VLAN List]] 時忘記 `add` 可能造成什麼後果？
 7. [[Native VLAN]] 為什麼容易成為 troubleshooting 與安全上的敏感點？
 8. [[Native VLAN Mismatch]] 為什麼會讓 frames 被放進錯誤 VLAN？
+9. 同樣是 untagged frame，進入 [[Access Port]] 與 [[Trunk Port]] 時，switch 分別依什麼規則判定 VLAN 歸屬？
+10. 若同一 VLAN 的 hosts 位於兩台 switches 上卻無法互通，如何依序用 port mode、[[Allowed VLAN List]] 與 [[Native VLAN Mismatch]] 縮小問題範圍？
+11. 為什麼 `switchport trunk allowed vlan 40` 與 `switchport trunk allowed vlan add 40` 可能造成完全不同的 traffic 結果？
 
 ## Inter-VLAN Routing Reasoning
 

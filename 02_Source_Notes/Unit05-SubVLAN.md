@@ -22,6 +22,7 @@ tags: #source-note #unit #acting-ccna #subnetting #vlan #layer2 #layer3
 - [[VLAN]] 把一台 physical switch 分成多個 virtual switches；每個 VLAN 是獨立 broadcast domain，讓 Layer 2 segmentation 與 Layer 3 subnets 對齊。
 - [[Access Port]] 屬於單一 VLAN；[[Trunk Port]] 可承載多個 VLAN，靠 [[IEEE 802.1Q Tag]] 標記 frame 屬於哪個 VLAN。
 - [[Native VLAN]] 的 frames 在 802.1Q trunk 上通常不加 tag；兩端 native VLAN 不一致會造成 [[Native VLAN Mismatch]]。
+- [[12-VLAN Question|VLAN Trunking Troubleshooting]] 把 port mode、native VLAN 與 allowed VLAN list 串成排錯流程：先確認 port role，再確認 VLAN 歸屬與 trunk 兩端設定。
 - 不同 VLAN/subnet 之間要通訊，需要 [[Inter-VLAN Routing]]；可用多條 router physical interfaces、[[12.4-Router on a Stick]]、或 [[12.4-Multilayer Switch]] + [[Switch Virtual Interface]] 實作。
 
 ## Core Concepts
@@ -44,6 +45,7 @@ tags: #source-note #unit #acting-ccna #subnetting #vlan #layer2 #layer3
 - [[Allowed VLAN List]]
 - [[Native VLAN]]
 - [[Native VLAN Mismatch]]
+- [[12-VLAN Question|VLAN Trunking Troubleshooting]]
 - [[Inter-VLAN Routing]]
 - [[12.4-Router on a Stick]]
 - [[Subinterface]]

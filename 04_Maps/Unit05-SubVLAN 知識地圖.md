@@ -64,6 +64,25 @@ flowchart TD
 - [[Allowed VLAN List]] → limits which VLANs traverse a trunk
 - [[Native VLAN]] → carries untagged traffic on an 802.1Q trunk
 - Native VLAN inconsistency → causes → [[Native VLAN Mismatch]]
+- Untagged frame ingress on an [[Access Port]] → assigned to → configured access [[VLAN]] (or [[Default VLAN]] before explicit assignment)
+- Untagged frame ingress on a [[Trunk Port]] → assigned to → [[Native VLAN]]
+- `switchport trunk allowed vlan <list>` without `add` → replaces → current [[Allowed VLAN List]]
+- Missing VLAN from [[Allowed VLAN List]] → prevents that VLAN's traffic from crossing → [[Trunk Port]]
+
+## VLAN Trunk Troubleshooting Flow
+
+```mermaid
+flowchart TD
+  A["VLAN traffic cannot cross a link"] --> B{"Port is trunking?"}
+  B -- "No" --> C["Verify port mode / access VLAN"]
+  B -- "Yes" --> D{"VLAN is allowed?"}
+  D -- "No" --> E["Correct Allowed VLAN List"]
+  D -- "Yes" --> F{"Native VLAN matches at both ends?"}
+  F -- "No" --> G["Correct Native VLAN Mismatch"]
+  F -- "Yes" --> H["Continue with VLAN existence and forwarding checks"]
+```
+
+- Workflow note：[[12-VLAN Question|VLAN Trunking Troubleshooting]]
 
 ## Inter-VLAN Routing Relationships
 
