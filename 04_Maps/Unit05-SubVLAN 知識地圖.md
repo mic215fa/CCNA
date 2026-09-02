@@ -71,10 +71,10 @@ flowchart TD
 - Communication between VLANs → requires → [[Inter-VLAN Routing]]
 - [[Inter-VLAN Routing]] → reuses → [[Default Gateway]] and [[Routing Table]]
 - Separate router physical interfaces → simple inter-VLAN routing but consumes interfaces
-- [[Router on a Stick]] → reduces physical interfaces by using → [[Trunk Port]] + [[Subinterface]]
+- [[12.4-Router on a Stick]] → reduces physical interfaces by using → [[Trunk Port]] + [[Subinterface]]
 - [[Subinterface]] → mapped to VLAN by → [[IEEE 802.1Q Tag]] / `encapsulation dot1q`
-- [[Multilayer Switch]] → performs switching and routing in one device
-- [[Switch Virtual Interface]] → acts as VLAN default gateway on a → [[Multilayer Switch]]
+- [[12.4-Multilayer Switch]] → performs switching and routing in one device
+- [[Switch Virtual Interface]] → acts as VLAN default gateway on a → [[12.4-Multilayer Switch]]
 - [[Routed Port]] → lets a multilayer switch connect to external Layer 3 networks
 
 ## Cross-document / Cross-unit Relationships Added
@@ -101,7 +101,7 @@ flowchart TD
 
 - [[VLAN]], [[Trunk Port]], [[IEEE 802.1Q Tag]], and [[Native VLAN]] lead into DTP/VTP, STP per VLAN, EtherChannel trunking, and VLAN security.
 - [[VLSM]] leads into route summarization, OSPF network design, and ACL wildcard/matching logic.
-- [[Multilayer Switch]], [[Switch Virtual Interface]], and [[Routed Port]] lead into campus design and Layer 3 switching troubleshooting.
+- [[12.4-Multilayer Switch]], [[Switch Virtual Interface]], and [[Routed Port]] lead into campus design and Layer 3 switching troubleshooting.
 
 ## REVIEW
 

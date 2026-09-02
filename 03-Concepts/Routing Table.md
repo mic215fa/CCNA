@@ -45,7 +45,7 @@ Router 收到送給自己的 frame 後，取出 IPv4 packet，查看 destination
 ## Unit05 Additions
 
 - Inter-VLAN routing creates or uses routes between VLAN subnets.
-- [[Switch Virtual Interface]]s on a [[Multilayer Switch]] can create connected and local routes in the switch routing table, similar to router interfaces.
+- [[Switch Virtual Interface]]s on a [[12.4-Multilayer Switch]] can create connected and local routes in the switch routing table, similar to router interfaces.
 
 ## Additional Appears In
 

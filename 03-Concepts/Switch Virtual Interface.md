@@ -17,7 +17,7 @@ SVI 讓 multilayer switch 能為每個 VLAN 提供 default gateway，並在 swit
 
 ## Prerequisites
 
-- [[Multilayer Switch]]
+- [[12.4-Multilayer Switch]]
 - [[VLAN]]
 - [[IPv4 Address]]
 - [[Routing Table]]

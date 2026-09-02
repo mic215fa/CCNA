@@ -78,7 +78,7 @@ Router 是連接不同 LAN 或連接 LAN 與外部網路的設備，例如把辦
 ## Unit05 Additions
 
 - [[Router]] participates in [[Inter-VLAN Routing]] when traffic must move between VLANs/subnets.
-- In [[Router on a Stick]], one router physical interface can be divided into multiple [[Subinterface]]s, each associated with a VLAN via 802.1Q encapsulation.
+- In [[12.4-Router on a Stick]], one router physical interface can be divided into multiple [[Subinterface]]s, each associated with a VLAN via 802.1Q encapsulation.
 
 ## Additional Appears In
 

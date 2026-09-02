@@ -19,9 +19,9 @@ VLAN 在 Layer 2 分隔 broadcast domains；不同 VLAN 的 hosts 不能直接�
 
 ## Related Concepts
 
-- [[Router on a Stick]]
+- [[12.4-Router on a Stick]]
 - [[Subinterface]]
-- [[Multilayer Switch]]
+- [[12.4-Multilayer Switch]]
 - [[Switch Virtual Interface]]
 - [[Routed Port]]
 

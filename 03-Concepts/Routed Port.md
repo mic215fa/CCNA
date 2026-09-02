@@ -12,7 +12,7 @@ Multilayer switch 除了在 LAN 內做 inter-VLAN routing，也需要連到外�
 
 ## Prerequisites
 
-- [[Multilayer Switch]]
+- [[12.4-Multilayer Switch]]
 - [[Network Interface]]
 - [[IPv4 Address]]
 

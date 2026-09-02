@@ -84,7 +84,7 @@ Switch 是在 [[LAN]] 內連接多個設備的網路基礎設施設備。
 
 - Unit05 extends [[Switch]] from basic Layer 2 forwarding into VLAN-aware forwarding.
 - A switch can be divided into multiple virtual switches with [[VLAN]], each with its own broadcast domain.
-- Switch interfaces can act as [[Access Port]]s or [[Trunk Port]]s; on a [[Multilayer Switch]], they can also relate to [[Switch Virtual Interface]] and [[Routed Port]].
+- Switch interfaces can act as [[Access Port]]s or [[Trunk Port]]s; on a [[12.4-Multilayer Switch]], they can also relate to [[Switch Virtual Interface]] and [[Routed Port]].
 
 ## Additional Appears In
 

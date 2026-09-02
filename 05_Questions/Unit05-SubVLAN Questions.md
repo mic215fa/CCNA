@@ -34,9 +34,9 @@ tags: #questions #acting-ccna #unit-questions #subnetting #vlan
 1. 為什麼 VLAN 間不能只靠 switch Layer 2 forwarding 互通？
 2. [[Inter-VLAN Routing]] 如何重用 Unit04 的 [[Default Gateway]] 與 [[Routing Table]]？
 3. Router 每個 VLAN 一條 physical interface 的設計，優點與限制是什麼？
-4. [[Router on a Stick]] 如何用一條 trunk link 支援多個 VLAN？
+4. [[12.4-Router on a Stick]] 如何用一條 trunk link 支援多個 VLAN？
 5. [[Subinterface]] 的編號為什麼不一定要等於 VLAN ID？真正決定 VLAN mapping 的設定是什麼？
-6. [[Multilayer Switch]] 與外接 router 相比，對 inter-VLAN routing 有什麼優勢？
+6. [[12.4-Multilayer Switch]] 與外接 router 相比，對 inter-VLAN routing 有什麼優勢？
 7. [[Switch Virtual Interface]] 要 up/up 需要哪些條件？
 8. [[Routed Port]] 與一般 switchport 的差異是什麼？
 

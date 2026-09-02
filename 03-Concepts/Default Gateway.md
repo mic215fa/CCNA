@@ -46,7 +46,7 @@ Host 會 ARP default gateway 的 MAC address，然後把目的 IP 為遠端 host
 ## Unit05 Additions
 
 - In VLAN designs, each VLAN/subnet normally needs a default gateway.
-- The default gateway can be a router physical interface, a [[Subinterface]] in [[Router on a Stick]], or a [[Switch Virtual Interface]] on a [[Multilayer Switch]].
+- The default gateway can be a router physical interface, a [[Subinterface]] in [[12.4-Router on a Stick]], or a [[Switch Virtual Interface]] on a [[12.4-Multilayer Switch]].
 
 ## Additional Appears In
 

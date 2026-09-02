@@ -12,7 +12,7 @@ Subinterface 是建立在 router physical interface 之上的 virtual interface�
 
 ## Prerequisites
 
-- [[Router on a Stick]]
+- [[12.4-Router on a Stick]]
 - [[IEEE 802.1Q Tag]]
 - [[VLAN ID]]
 - [[IPv4 Address]]

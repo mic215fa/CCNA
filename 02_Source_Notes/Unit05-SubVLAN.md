@@ -22,7 +22,7 @@ tags: #source-note #unit #acting-ccna #subnetting #vlan #layer2 #layer3
 - [[VLAN]] 把一台 physical switch 分成多個 virtual switches；每個 VLAN 是獨立 broadcast domain，讓 Layer 2 segmentation 與 Layer 3 subnets 對齊。
 - [[Access Port]] 屬於單一 VLAN；[[Trunk Port]] 可承載多個 VLAN，靠 [[IEEE 802.1Q Tag]] 標記 frame 屬於哪個 VLAN。
 - [[Native VLAN]] 的 frames 在 802.1Q trunk 上通常不加 tag；兩端 native VLAN 不一致會造成 [[Native VLAN Mismatch]]。
-- 不同 VLAN/subnet 之間要通訊，需要 [[Inter-VLAN Routing]]；可用多條 router physical interfaces、[[Router on a Stick]]、或 [[Multilayer Switch]] + [[Switch Virtual Interface]] 實作。
+- 不同 VLAN/subnet 之間要通訊，需要 [[Inter-VLAN Routing]]；可用多條 router physical interfaces、[[12.4-Router on a Stick]]、或 [[12.4-Multilayer Switch]] + [[Switch Virtual Interface]] 實作。
 
 ## Core Concepts
 
@@ -45,9 +45,9 @@ tags: #source-note #unit #acting-ccna #subnetting #vlan #layer2 #layer3
 - [[Native VLAN]]
 - [[Native VLAN Mismatch]]
 - [[Inter-VLAN Routing]]
-- [[Router on a Stick]]
+- [[12.4-Router on a Stick]]
 - [[Subinterface]]
-- [[Multilayer Switch]]
+- [[12.4-Multilayer Switch]]
 - [[Switch Virtual Interface]]
 - [[Routed Port]]
 
@@ -128,8 +128,8 @@ VLAN 隔離 traffic，但業務上不同部門仍可能需要互通。[[Inter-VL
 - 多個 VLAN 需要跨 switch 傳送 → 使用 [[Trunk Port]] 與 [[IEEE 802.1Q Tag]]。
 - Native VLAN 兩端不一致 → untagged frames 被歸到錯誤 VLAN → [[Native VLAN Mismatch]]。
 - VLAN 間被 Layer 2 隔離 → 不同 VLAN/subnet 不能直接互通 → 需要 [[Inter-VLAN Routing]]。
-- Router physical interfaces 不足或線材太多 → 使用 [[Router on a Stick]] 與 [[Subinterface]]。
-- 需要在 switch 內部高速 routing → 使用 [[Multilayer Switch]] 與 [[Switch Virtual Interface]]。
+- Router physical interfaces 不足或線材太多 → 使用 [[12.4-Router on a Stick]] 與 [[Subinterface]]。
+- 需要在 switch 內部高速 routing → 使用 [[12.4-Multilayer Switch]] 與 [[Switch Virtual Interface]]。
 
 ## Prerequisites
 
@@ -145,8 +145,8 @@ VLAN 隔離 traffic，但業務上不同部門仍可能需要互通。[[Inter-VL
 - [[VLSM]] depends on choosing subnet sizes by host requirement, usually from largest requirement to smallest。
 - [[VLAN]] depends on switch ports being assigned to VLANs and switch forwarding being constrained by VLAN membership。
 - [[Trunk Port]] depends on [[IEEE 802.1Q Tag]] to preserve VLAN identity across a shared link。
-- [[Router on a Stick]] depends on trunking and [[Subinterface]] configuration。
-- [[Switch Virtual Interface]] inter-VLAN routing depends on [[Multilayer Switch]] IP routing being enabled and the VLAN/SVI being up/up。
+- [[12.4-Router on a Stick]] depends on trunking and [[Subinterface]] configuration。
+- [[Switch Virtual Interface]] inter-VLAN routing depends on [[12.4-Multilayer Switch]] IP routing being enabled and the VLAN/SVI being up/up。
 
 ## Leads To
 
@@ -176,7 +176,7 @@ VLAN 隔離 traffic，但業務上不同部門仍可能需要互通。[[Inter-VL
 - Access Port：只屬於一個 VLAN，通常連 end host。
 - Trunk Port：可承載多個 VLAN，通常連 switch-to-switch 或 switch-to-router。
 
-### [[Router on a Stick]] vs [[Switch Virtual Interface]]
+### [[12.4-Router on a Stick]] vs [[Switch Virtual Interface]]
 
 - ROAS：用 router 單一 physical interface + subinterfaces + trunk link 做 inter-VLAN routing。
 - SVI：用 multilayer switch 在內部 VLAN interfaces 上做 routing，通常不需要外接 router 才能在 VLAN 間轉送。

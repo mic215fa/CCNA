@@ -20,7 +20,7 @@ Trunk Port 是能在同一 physical link 上承載多個 VLAN traffic 的 switch
 - [[Access Port]]
 - [[Allowed VLAN List]]
 - [[Native VLAN]]
-- [[Router on a Stick]]
+- [[12.4-Router on a Stick]]
 
 ## Mechanism
 
