@@ -29,6 +29,12 @@ tags: #review #acting-ccna #unit-review #routing #interface
 - Reason：實務與考試上可能會建議避免依賴 Proxy ARP，改用 next-hop 或 fully specified static route；目前來源只建立基本機制。
 - Status：REVIEW after more advanced routing/static route materials。
 
+### Concept boundary: Static route forms
+
+- [[Static Route#Recursive Static Route|Recursive Static Route]] 與 [[Static Route#Fully Specified Static Route|Fully Specified Static Route]] 已整合回 [[Static Route]]，並加入 exit-interface-only form 作完整比較。
+- Reason：它們是同一 route source 的不同 forwarding-instruction forms，不需要形成獨立薄 Concept Notes。
+- Status：Concept boundary 已解決；Proxy ARP 與 multiaccess behavior 仍保留 REVIEW。
+
 ### Concept boundary: Route selection depth
 
 - [[Route Selection]] 目前以 Chapter 9 的 longest prefix match 為主。

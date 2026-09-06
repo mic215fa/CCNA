@@ -55,6 +55,8 @@ Use the following default directory structure:
 ├── 04-Maps/
 ├── 05-Questions/
 ├── 06_review/
+├── 80_DailyWorkRecord/
+├── 85_DailyWorkReview/
 └── AGENTS.md
 ```
 
@@ -1676,3 +1678,52 @@ A good processing result should make it easier to answer:
 10. What am I still uncertain about?
 
 If the generated notes cannot help answer these questions, improve the knowledge structure rather than generating more text.
+
+---
+
+# 37. Daily Work Record
+
+Every workday that changes the Vault must create or update:
+
+```text
+80_DailyWorkRecord/YYYY-MM-DD.md
+```
+
+This is an execution log, not a knowledge summary. Record work in actual execution order and include:
+
+1. user goal or trigger;
+2. sources inspected;
+3. decisions and concept-boundary reasoning;
+4. files created, updated, moved, consolidated, or removed;
+5. affected `03-Concepts`, `04_Maps`, `05_Questions`, and `06_review` files;
+6. relationships added and the Map where they were persisted;
+7. REVIEW items and the review file where they were persisted;
+8. validation performed and its outcome;
+9. remaining follow-up work.
+
+Use numbered steps so the work can be reconstructed later. Preserve source-versus-inference distinctions. Do not copy the full content of modified notes into the record; link to them and explain why they changed.
+
+When several tasks occur on the same date, append new sections to the same daily record rather than creating multiple competing files.
+
+---
+
+# 38. Daily Work Review
+
+Every workday that creates or materially changes knowledge must create or update:
+
+```text
+85_DailyWorkReview/YYYY-MM-DD Review Map.md
+```
+
+The Daily Work Review is a study map derived from that day's work. It must:
+
+1. link back to the corresponding Daily Work Record;
+2. identify relevant Source Notes and original Sources;
+3. identify the Concepts and Maps changed that day;
+4. divide review into approximately 15-minute units;
+5. state a goal, reading path, recall task, and verification question for each unit;
+6. progress from source evidence to Concept understanding to Map-level relationships;
+7. include REVIEW items that require human validation;
+8. offer a shorter priority path when the full review cannot be completed.
+
+A 15-minute unit should contain a realistic amount of material. Prefer several focused units over one overloaded checklist. Questions should test explanation, comparison, cause-effect, topology reasoning, or troubleshooting—not only definitions.

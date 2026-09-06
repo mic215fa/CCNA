@@ -21,32 +21,27 @@ tags: #source-note #unit #acting-ccna #cli #ethernet #ipv4
 - [[MAC Address Table]] 是 switch forwarding 的核心資料結構；[[MAC Address Learning]] 使用 source MAC 建表，[[Frame Forwarding]] / [[Frame Flooding]] 則依 destination MAC 是否已知做決策。
 - [[Address Resolution Protocol]] 是 Layer 2 與 Layer 3 的橋：用已知 [[IPv4 Address]] 找出未知 [[MAC Address]]。
 - [[IPv4 Header]] 承載 Layer 3 delivery 所需資訊；其中 source/destination IPv4 address 決定 end-to-end 目的地。
-- [[IPv4 Address]] 是 32-bit Layer 3 address，由 network portion 與 host portion 組成；[[Prefix Length]] 與 [[Netmask]] 用來界定這兩個部分。
+- [[IPv4 Addressing]] 串連 32-bit [[IPv4 Address]]、表示法、network/host boundary 與 local/remote 判斷；[[Prefix Length]] 與 [[Netmask]] 用來界定這兩個部分。
 - [[Router]] 需要在不同 LAN 的 interface 上設定對應 IPv4 address，才能連接這些網路。
 
 ## Core Concepts
+
+- [[Ethernet Switching]]
+- [[IPv4 Addressing]]
 
 - [[Cisco IOS CLI]]
 - [[Console Port]]
 - [[Rollover Cable]]
 - [[Terminal Emulator]]
 - [[Cisco IOS Command Mode]]
-- [[User EXEC Mode]]
-- [[Privileged EXEC Mode]]
-- [[Global Configuration Mode]]
-- [[Context-sensitive Help]]
 - [[IOS Configuration File]]
-- [[Running Config]]
-- [[Startup Config]]
-- [[Enable Password]]
-- [[Enable Secret]]
 - [[Ethernet Frame]]
 - [[Preamble and SFD]]
 - [[EtherType]]
 - [[Frame Check Sequence]]
 - [[MAC Address Table]]
 - [[MAC Address Learning]]
-- [[MAC Aging]]
+- [[MAC Address Table#Dynamic Entries and Aging|MAC Aging]]
 - [[Frame Forwarding]]
 - [[Frame Flooding]]
 - [[Unicast Frame]]
@@ -54,14 +49,14 @@ tags: #source-note #unit #acting-ccna #cli #ethernet #ipv4
 - [[Layer 2 Domain]]
 - [[Broadcast Domain]]
 - [[Address Resolution Protocol]]
-- [[ARP Table]]
+- [[Address Resolution Protocol#ARP Cache (ARP Table)|ARP Table]]
 - [[Ping]]
 - [[ICMP]]
 - [[IPv4 Address]]
 - [[IPv4 Header]]
 - [[Binary Number System]]
-- [[Dotted Decimal Notation]]
-- [[Octet]]
+- [[IPv4 Addressing#Representation|Dotted Decimal Notation]]
+- [[IPv4 Addressing#Representation|Octet]]
 - [[Prefix Length]]
 - [[Netmask]]
 - [[Network Portion and Host Portion]]
@@ -137,12 +132,12 @@ Chapter 6 延伸 Unit02 的 [[Data Link Layer]]：switch 不是隨便把 frame �
 
 ## Cause and Effect
 
-- CLI must change device behavior → configuration modes exist → commands update [[Running Config]]。
-- Running-config is stored in RAM → reload/power loss removes unsaved changes → copy to [[Startup Config]]。
+- CLI must change device behavior → configuration modes exist → commands update [[IOS Configuration File#Running Configuration|Running Config]]。
+- Running-config is stored in RAM → reload/power loss removes unsaved changes → copy to [[IOS Configuration File#Startup Configuration|Startup Config]]。
 - Switch receives a frame → learns source MAC → updates [[MAC Address Table]]。
 - Destination MAC is known → switch forwards out one port → [[Frame Forwarding]]。
 - Destination MAC is unknown or broadcast → switch sends out all other ports → [[Frame Flooding]]。
-- Host knows destination IP but not MAC → sends ARP request → learns MAC via ARP reply → stores mapping in [[ARP Table]]。
+- Host knows destination IP but not MAC → sends ARP request → learns MAC via ARP reply → stores mapping in [[Address Resolution Protocol#ARP Cache (ARP Table)|ARP Table]]。
 - Packet might loop through routers → [[Time To Live]] decreases each hop → packet is dropped at 0。
 - IPv4 network needs host addresses → reserve network/broadcast addresses → usable range excludes first and last address。
 
@@ -159,7 +154,7 @@ Chapter 6 延伸 Unit02 的 [[Data Link Layer]]：switch 不是隨便把 frame �
 - [[Frame Forwarding]] depends on [[MAC Address Table]]。
 - [[MAC Address Table]] depends on [[MAC Address Learning]] and source MAC addresses in [[Ethernet Frame]]。
 - [[Address Resolution Protocol]] depends on both [[IPv4 Address]] and [[MAC Address]]。
-- [[IPv4 Address]] depends on [[Binary Number System]]、[[Octet]]、[[Prefix Length]] / [[Netmask]]。
+- [[IPv4 Address]] depends on [[Binary Number System]]、[[IPv4 Addressing#Representation|Octet]]、[[Prefix Length]] / [[Netmask]]。
 - Router inter-LAN connectivity depends on correct IPv4 addressing on router interfaces。
 
 ## Leads To
@@ -172,11 +167,11 @@ Chapter 6 延伸 Unit02 的 [[Data Link Layer]]：switch 不是隨便把 frame �
 
 ## Relationships
 
-重要關係已持久記錄於 [[04_Maps/Unit03-CLI-Eth-IPV4 知識地圖|Unit03：CLI、Ethernet、IPv4 知識地圖]] 的 `Relationships Added`。
+Unit 整體關係記錄於 [[04_Maps/Unit03-CLI-Eth-IPV4 知識地圖|Unit03：CLI、Ethernet、IPv4 知識地圖]]；CLI modes、管理存取與 configuration lifecycle 的可重用關係另集中於 [[04_Maps/Cisco IOS CLI 與 Configuration 地圖|Cisco IOS CLI 與 Configuration 地圖]]。
 
 ## Contrast
 
-### [[Running Config]] vs [[Startup Config]]
+### [[IOS Configuration File#Running Configuration|Running Config]] vs [[IOS Configuration File#Startup Configuration|Startup Config]]
 
 - Running Config：目前正在運作的設定，存於 RAM，設定命令會立即修改它。
 - Startup Config：開機時載入的設定，存於 NVRAM，需要手動儲存才會更新。
@@ -238,4 +233,3 @@ show ip interface <interface-name>
 ## REVIEW
 
 - 集中 REVIEW 紀錄：[[06_review/Unit03-CLI-Eth-IPV4 REVIEW|Unit03-CLI-Eth-IPV4 REVIEW]]
-

@@ -4650,34 +4650,28 @@ NOTE A switch that does not have a VTP domain name is said to be in domain NULL.
 
 ```
 SW1# show vtp status
-VTP Version capable : 1 to 3
-VTP version running : 1
-VTP Domain Name :
-VTP Pruning Mode : Disabled
-```
-
-```
-VTP Traps Generation : Disabled
-Device ID : 5254.0008.8000
+VTP Version capable                       : 1 to 3
+VTP version running                       : 1
+VTP Domain Name                           :
+VTP Pruning Mode                          : Disabled
+VTP Traps Generation                      : Disabled
+Device ID                                 : 5254.0008.8000
 Configuration last modified by 0.0.0.0 at 4-25-23 03:25:46
 Local updater ID is 0.0.0.0 (no valid interface found)
-```
 
-```
 Feature VLAN:
-        SW1 is a VTP server by default.
-            SW1’s VLAN database
-            SW1’s VLAN database
-            has five VLANs.
-            has five VLANs.
-    Number of existing VLANs : 5
-    Configuration Revision : 0
-MD5 digest : 0x57 0xCD 0x40 0x65 0x63 0x59 0x47 0xBD
-        0x56 0x9D 0x4A 0x3E 0xA5 0x69 0x35 0xBC
+--------------
+VTP Operating Mode                        : Server
+Maximum VLANs supported locally           : 1005
+Number of existing VLANs                  : 5
+Configuration Revision                    : 0
+MD5 digest                                : 0x57 0xCD 0x40 0x65 0x63 0x59 0x47 0xBD
+                                            0x56 0x9D 0x4A 0x3E 0xA5 0x69 0x35 0xBC
 ```
 
-        The revision number starts at 0.
-    If you configure a VTP domain name on one switch, it will send VTP messages to other switches, and all switches without a VTP domain name will adopt the new domain name; the command to do so is vtp domain domain-name. In the following examples, I configure the VTP domain name "Manning" and VLANs 2, 3, and 4 on SW1. Then, I confirm that all switches in the LAN have joined the "Manning" domain and share the same Configuration Revision number-this is the revision number that I mentioned previously:
+The revision number starts at 0.
+
+If you configure a VTP domain name on one switch, it will send VTP messages to other switches, and all switches without a VTP domain name will adopt the new domain name; the command to do so is **vtp domain** *domain-name*. In the following examples, I configure the VTP domain name “Manning” and VLANs 2, 3, and 4 on SW1. Then, I confirm that all switches in the LAN have joined the “Manning” domain and share the same Configuration Revision number—this is the revision number that I mentioned previously:
 
 ```
 SW1(config)# vtp domain Manning
@@ -4685,56 +4679,43 @@ Changing VTP domain name from NULL to Manning
 SW1(config)# vlan 2
 SW1(config-vlan)# vlan 3
 SW1(config-vlan)# vlan 4
-SW1(config-vlan) # end
+SW1(config-vlan)# end
 SW1# show vtp status
 . . .
-VTP Domain Name : Manning
+VTP Domain Name                           : Manning
 . . .
-Number of existing VLANs : 8
-Configuration Revision : 3
+Number of existing VLANs                  : 8
+Configuration Revision                    : 3
+SW2# show vtp status
+. . .
+VTP Domain Name                           : Manning
+. . .
+Number of existing VLANs                  : 8
+Configuration Revision                    : 3
+SW3# show vtp status
+. . .
+VTP Domain Name                           : Manning
+. . .
+Number of existing VLANs                  : 8
+Configuration Revision                    : 3
 ```
 
 ![](./images/0f86a34f-6bf0-4f73-9c16-fc4f38df6c5c-257_228_694_1263_929.jpg)
 
-```
-SW2# show vtp status
-. . .
-```
-
-SW2 and SW3 joined the VTP domain
-
-```
-VTP Domain Name : Manning
-```
-
-and synced their VLAN databases.
-
-```
-. . .
-Number of existing VLANs : 8
-Configuration Revision : 3
-SW3# show vtp status
-. . .
-VTP Domain Name : Manning
-. . .
-Number of existing VLANs : 8
-Configuration Revision : 3
-```
-
-Because the revision number is used to keep track of the latest version of the VLAN database, switches will only synchronize their VLAN database if they receive a VTP
-message from a switch with a higher revision number, not a lower one; a VTP message with a lower (or equal) revision number is considered old information.
+Because the revision number is used to keep track of the latest version of the VLAN database, switches will only synchronize their VLAN database if they receive a VTP message from a switch with a higher revision number, not a lower one; a VTP message with a lower (or equal) revision number is considered old information.
 
 ### 13.2.2 VTP modes
 
 A Cisco switch can operate in one of four VTP modes: server, client, transparent, and off, each mode with its own characteristics. The VTP mode can be configured with the vtp mode mode command. Switches in server mode and client mode actively participate in VTP and synchronize their VLAN databases to match each other, whereas switches in transparent mode and off mode do not. Table 13.3 summarizes each mode.
 
-Table 13.3 VTP modes
-| Mode | Description |
-| :--- | :--- |
-| Server | This is the default mode. The switch can create/modify/delete VLANs. It will advertise changes to its VLAN database and synchronize its VLAN database upon receiving an advertisement with a higher revision number. |
-| Client | The switch cannot create/modify/delete VLANs but otherwise behaves the same as a server. |
-| Transparent | The switch can create/modify/delete VLANs, but it will not advertise changes to its own VLAN database and will not synchronize its VLAN database with others. The switch does not directly participate in the VTP domain, but it will forward VTP messages between switches in the same domain. |
-| Off | The switch can create/modify/delete VLANs, but it will not advertise changes to its own VLAN database and will not synchronize its VLAN database with others. The switch does not participate in VTP at all. |
+**Table 13.3 — VTP modes／VTP 模式**
+
+| Mode／模式      | Description／說明 |
+| :------------- | :---------------- |
+| `server`       | This is the default mode. The switch can create, modify, and delete VLANs. It advertises VLAN database changes and synchronizes its database when it receives an advertisement with a higher revision number.<br>這是預設模式。Switch 可以建立、修改及刪除 VLAN；它會通告 VLAN database 的變更，並在收到具有較高 revision number 的 advertisement 時同步自己的 database。 |
+| `client`       | The switch cannot create, modify, or delete VLANs, but otherwise behaves like a server.<br>Switch 無法建立、修改或刪除 VLAN；除此之外，其行為與 server 相同。 |
+| `transparent`  | The switch can create, modify, and delete VLANs locally, but it neither advertises its own VLAN database changes nor synchronizes with other switches. It does not directly participate in the VTP domain, but it forwards VTP messages between switches in the same domain.<br>Switch 可以在本機建立、修改及刪除 VLAN，但不會通告自己的 VLAN database 變更，也不會與其他 switches 同步。它不直接參與 VTP domain，但會在同一 domain 的 switches 之間轉送 VTP messages。 |
+| `off`          | The switch can create, modify, and delete VLANs locally, but it neither advertises nor synchronizes its VLAN database. It does not participate in VTP and does not forward VTP messages.<br>Switch 可以在本機建立、修改及刪除 VLAN，但不會通告或同步 VLAN database。它完全不參與 VTP，也不會轉送 VTP messages。 |
 
 
 Switches are in VTP server mode by default. In this mode, a switch can create, modify (ie. rename), and delete VLANs, and those changes will be advertised to other switches in the domain. A VTP server will also synchronize its own VLAN database if it receives a VTP message with a higher revision number.
@@ -4837,7 +4818,7 @@ However, the primary server mechanism in version 3 eliminates this risk; switche
 - The VTP domain is the group of switches in a LAN that share the same VTP domain name; a switch will only synchronize with another switch in the same domain.
 - By default, a switch has no domain name; it is said to be in domain NULL. In this state, the switch can create/modify/delete VLANs, but it won't send VTP messages to other switches.
 
-- You can configure a switch's VTP domain name with the vtp domain domain -name command.
+- You can configure a switch's VTP domain name with the vtp domain domain-name command.
 - Use the show vtp status command to view the current state of VTP on the switch.
 - A switch can operate in one of four VTP modes: server, client, transparent, and off. Use the vtp mode mode command to configure the mode (server is the default).
 - A switch in VTP server mode can create/modify/delete VLANs. It will advertise changes to its VLAN database and synchronize its VLAN database upon receiving an advertisement with a higher revision number.
@@ -4848,9 +4829,37 @@ However, the primary server mechanism in version 3 eliminates this risk; switche
 - VTP version 3 introduced off mode; before, VTP couldn't be disabled. The closest thing was to configure all switches in VTP transparent mode.
 - In VTP version 3, only one switch in the domain can create, modify, and delete VLANs: the primary server. Switches in the domain will only synchronize with the primary server. Other servers are called secondary servers; they function the same as VTP clients.
 - Use the vtp primary command (in privileged EXEC mode) on a VTP server to make it the primary server. There can only be one; if you configure vtp primary on a second server, the first one will revert to being a secondary server.
-- VTP version 3 is the only version that supports extended-rangeVLANs (VLANs 1006 to 4094). Versions 1 and 2 only support normal-range VLANs (VLANs 1 to 1005).
+- VTP version 3 is the only version that supports extended-range VLANs (VLANs 1006 to 4094). Versions 1 and 2 only support normal-range VLANs (VLANs 1 to 1005).
 - One risk of VTP is that a newly connected switch with a higher revision number can overwrite the VLAN database of all switches in the LAN. Version 3 solves this problem because switches will only synchronize with the primary server.
 - To reset a switch's VTP revision number to 0, you can change the domain name to a different one and then back to the original. Alternatively, you can change the mode to transparent or off and then back to server or client, but this only works in versions 1 and 2.
+
+> [!translation] Summary 逐點繁體中文翻譯
+> - Dynamic Trunking Protocol（DTP）讓 Cisco switches 自動決定 ports 的 operational mode。
+> - Port 的 administrative mode 是透過 `switchport mode` 指令設定的模式；operational mode 則是 port 實際運作的模式，也就是 access 或 trunk。
+> - 使用 `show interfaces interface-name switchport` 查看 port 的 administrative mode 與 operational mode。
+> - 設定 `switchport mode access` 的 port 永遠以 access port 運作；設定 `switchport mode trunk` 的 port 永遠以 trunk port 運作。
+> - `switchport mode dynamic auto` 與 `switchport mode dynamic desirable` 會讓 port 使用 DTP 決定 operational mode。
+> - `dynamic auto` 不會主動嘗試與鄰居形成 trunk；但鄰居為 `trunk` 或 `dynamic desirable` 時會形成 trunk。
+> - `dynamic desirable` 會主動嘗試與鄰居形成 trunk；鄰居為 `trunk`、`dynamic auto` 或 `dynamic desirable` 時都會形成 trunk。
+> - DTP 被視為安全弱點，應予以停用。最佳實務是手動設定每個 port 的 mode，並在每個 port 使用 `switchport nonegotiate` 停用 DTP。
+> - VLAN Trunking Protocol（VTP）讓 Cisco switches 同步 VLAN database；這個 database 儲存 switch 上的 VLAN 資訊，檔名為 `vlan.dat`。
+> - VTP revision number 用來追蹤 VLAN database 的最新版本。每次發生變更時，revision number 加 1。Switch 會同步較高的 revision number，但不會同步較低或相同的 revision number。
+> - VTP domain 是 LAN 中共用相同 VTP domain name 的 switches 群組；switch 只會與相同 domain 中的其他 switch 同步。
+> - Switch 預設沒有 domain name，稱為位於 domain NULL。在此狀態下，switch 可以建立、修改及刪除 VLAN，但不會向其他 switches 傳送 VTP messages。
+> - 使用 `vtp domain domain-name` 設定 switch 的 VTP domain name。
+> - 使用 `show vtp status` 查看 switch 目前的 VTP 狀態。
+> - Switch 可在 server、client、transparent 與 off 四種 VTP modes 之一運作。使用 `vtp mode mode` 設定；server 是預設模式。
+> - VTP server mode 的 switch 可以建立、修改及刪除 VLAN。它會通告 VLAN database 的變更，並在收到較高 revision number 的 advertisement 時同步自己的 VLAN database。
+> - VTP client mode 的 switch 無法建立、修改或刪除 VLAN；除此之外，其行為與 server 相同。
+> - VTP transparent mode 的 switch 可以建立、修改及刪除 VLAN，但獨立於 VTP domain 中的其他 switches 運作。它會在相同 domain 的 switches 之間轉送 VTP messages，但不會傳送自己的 VTP messages，也不會與其他 switches 同步 VLAN database。
+> - VTP off mode 的 switch 可以建立、修改及刪除 VLAN，但完全不參與 VTP。
+> - VTP 有 versions 1、2、3。Versions 1 與 2 非常相似；version 3 則帶來多項改進。
+> - VTP version 3 加入 off mode；此前無法真正停用 VTP，最接近的做法是把所有 switches 設為 VTP transparent mode。
+> - 在 VTP version 3 中，domain 內只有 primary server 能建立、修改及刪除 VLAN。Domain 內的 switches 只會與 primary server 同步；其他 servers 稱為 secondary servers，功能與 VTP clients 相同。
+> - 在 VTP server 上以 privileged EXEC mode 使用 `vtp primary`，可使其成為 primary server。同一時間只能有一台；若在第二台 server 設定 `vtp primary`，第一台會恢復為 secondary server。
+> - 只有 VTP version 3 支援 extended-range VLANs（VLAN 1006–4094）；versions 1 與 2 僅支援 normal-range VLANs（VLAN 1–1005）。
+> - VTP 的風險之一，是新連接且具有較高 revision number 的 switch 可能覆寫 LAN 中所有 switches 的 VLAN database。Version 3 藉由只允許 switches 與 primary server 同步來解決此問題。
+> - 若要把 switch 的 VTP revision number 重設為 0，可以先把 domain name 改成其他名稱，再改回原名稱。另一種方法是先切換為 transparent 或 off mode，再切回 server 或 client mode；但這種方法只適用於 versions 1 與 2。
 
 ## Spanning Tree Protocol
 

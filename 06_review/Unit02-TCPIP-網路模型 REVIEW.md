@@ -17,14 +17,14 @@ tags: #review #acting-ccna #unit-review
 - Chapter 4 明確說明：範例中的封包通過 switch 不算 hop；hop 是 PC1 → R1、R1 → R2、R2 → SRV1 這類 Layer 2 forwarding 範圍。
 - Reason：Chapter 4 先建立觀念，但把 switch forwarding 的原因留到 Chapter 6。
 - Update：Unit03 / Chapter 6 已補強此點：[[Switch]] 對 connected hosts 是 transparent，不修改 frames，只依 [[MAC Address Table]] forward/flood；因此 message passing through a switch is not considered a hop。
-- Status：PARTIALLY RESOLVED；VLAN/STP/EtherChannel 對 Layer 2 domain 的影響仍待後續 Units。
+- Status：PARTIALLY RESOLVED；VLAN 與 STP 對 Layer 2 domain 的影響已由 Unit05／Unit06 補強，EtherChannel 尚待後續 Unit。
 
 ### Concept boundary: Ethernet
 
 - Unit02 已把 [[Ethernet]] 連到 [[Physical Layer]] 與 [[Data Link Layer]]，但還沒有拆出 Ethernet Frame、Switching Table、MAC Learning 等細節。
 - Reason：Chapter 4 只是用分層模型定位 Ethernet；Chapter 6 會提供更細的 Layer 2 switching 機制。
 - Update：Unit03 已新增 [[Ethernet Frame]]、[[MAC Address Table]]、[[MAC Address Learning]]、[[Frame Forwarding]]、[[Frame Flooding]]、[[Address Resolution Protocol]]。
-- Status：PARTIALLY RESOLVED；VLAN/STP/EtherChannel later。
+- Status：PARTIALLY RESOLVED；VLAN 與 STP 已由 Unit05／Unit06 補強，EtherChannel 尚待後續 Unit。
 
 ### Concept boundary: IP Address
 

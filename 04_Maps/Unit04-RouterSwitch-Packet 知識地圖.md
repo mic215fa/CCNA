@@ -46,17 +46,79 @@ flowchart TD
 
 ## Routing Relationships
 
+### Routing Table and Static Route Structure
+
+```mermaid
+flowchart TD
+  RT["Routing Table"] --> C["Connected Route"]
+  RT --> L["Local Route"]
+  RT --> S["Static Route"]
+  RT --> D["Dynamic Route — later units"]
+  RT --> RS["Route Selection"]
+  RS --> LPM["Longest Prefix Match"]
+  S --> R["Recursive: next hop only"]
+  S --> E["Directly attached: exit interface only"]
+  S --> F["Fully specified: interface + next hop"]
+  S --> DR["Default route: 0.0.0.0/0"]
+```
+
+| Layer of reasoning | Core concept | Question answered |
+|---|---|---|
+| State | [[Routing Table]] | Router currently knows which destination prefixes? |
+| Decision | [[Route Selection]] | Which matching prefix is most specific? |
+| Route source | [[Static Route]] | Which reachability did the administrator add manually? |
+| Forwarding instruction | [[Next Hop]]／[[Exit Interface]] | Who receives the packet next, and where does it leave? |
+
 - [[Router]] → makes forwarding decisions using → [[Routing Table]]
 - Router interface with IP and up/up state → creates → [[Connected Route]]
 - Router interface's own IP → creates → [[Local Route]]
 - [[Routing Table]] → is searched by → [[Route Selection]]
 - [[Route Selection]] → prefers more specific → [[Prefix Length]] match
 - [[Static Route]] → manually adds reachability to → remote networks
-- [[Recursive Static Route]] → specifies only → [[Next Hop]]
-- [[Fully Specified Static Route]] → specifies both → [[Exit Interface]] and [[Next Hop]]
+- [[Static Route#Recursive Static Route|Recursive Static Route]] → specifies only → [[Next Hop]]
+- [[Static Route#Fully Specified Static Route|Fully Specified Static Route]] → specifies both → [[Exit Interface]] and [[Next Hop]]
 - [[Default Route]] → fallback when no more specific route exists
 - [[Next Hop]] → requires MAC resolution via → [[Address Resolution Protocol]]
 - [[Proxy ARP]] → may answer ARP if router has a route to the requested destination
+
+## Static Route Decision Flow
+
+```mermaid
+flowchart TD
+  A["Need manual reachability"] --> B{"Known next-hop IP?"}
+  B -->|"Yes"| C["Recursive static route"]
+  B -->|"No"| D{"Point-to-point exit?"}
+  D -->|"Yes"| E["Exit-interface route may be sufficient"]
+  D -->|"No, multiaccess"| F["Prefer explicit next hop"]
+  C --> G{"Need explicit interface too?"}
+  G -->|"Yes"| H["Fully specified route"]
+  G -->|"No"| I["Verify recursive resolution"]
+  E --> J["Verify route installation and return path"]
+  F --> J
+  H --> J
+  I --> J
+```
+
+## Routing Troubleshooting Flow
+
+```text
+Destination address/prefix correct?
+  ↓
+Expected route installed in Routing Table?
+  ↓
+Is it the longest matching prefix?
+  ↓
+Next hop recursively reachable?
+  ↓
+Exit interface up/up and Layer 2 neighbor resolvable?
+  ↓
+Downstream and return routes present?
+```
+
+- Route absent → inspect route source and installation dependency。
+- Route present but not selected → compare prefix lengths。
+- Route selected but forwarding fails → inspect next hop, interface, ARP and adjacency。
+- Forward direction succeeds but session fails → inspect return route。
 
 ## Packet Life-cycle Relationships
 

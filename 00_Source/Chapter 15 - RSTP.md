@@ -1,5 +1,11 @@
 ## Rapid Spanning Tree Protocol
 
+> [!map] Chapter 15 Section Index
+> - [[Chapter 15.1 - Spanning Tree Protocol versions|15.1 Spanning Tree Protocol versions]]
+> - [[Chapter 15.2 - STP and RSTP comparison|15.2 STP and RSTP comparison]]
+> - [[Chapter 15.3 - RSTP link types|15.3 RSTP link types]]
+> - [[Chapter 15.4 - Root Guard, Loop Guard, and BPDU Filter|15.4 Root Guard, Loop Guard, and BPDU Filter]]
+
 ## This chapter covers
 
 - The standard and Cisco-proprietary versions of Spanning Tree Protocol

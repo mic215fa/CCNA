@@ -9,21 +9,28 @@ tags: #review #acting-ccna #unit-review
 - [[04_Maps/Unit03-CLI-Eth-IPV4 知識地圖|Unit03：CLI、Ethernet、IPv4 知識地圖]]
 - [[04_Maps/Ethernet Switching 與 ARP 地圖|Ethernet Switching 與 ARP 地圖]]
 - [[04_Maps/IPv4 Addressing 基礎地圖|IPv4 Addressing 基礎地圖]]
+- [[04_Maps/Cisco IOS CLI 與 Configuration 地圖|Cisco IOS CLI 與 Configuration 地圖]]
 - [[05_Questions/Unit03-CLI-Eth-IPV4 Questions|Unit03：CLI、Ethernet、IPv4 Questions]]
 
 ## REVIEW Items
 
 ### Concept boundary: IOS modes
 
-- Unit03 目前建立 [[Cisco IOS Command Mode]]、[[User EXEC Mode]]、[[Privileged EXEC Mode]]、[[Global Configuration Mode]]。
-- Reason：後續章節會出現 interface configuration mode、line configuration mode、router configuration mode 等子模式，可能需要再拆分或更新。
-- Status：REVIEW when later configuration modes appear。
+- [[Cisco IOS Command Mode]] 保留為核心狀態機；User EXEC、Privileged EXEC、Global Configuration 已合併為該頁的 anchors，不再各自維持薄 Concept Note。
+- Reason：三者必須一起理解其轉移與權限範圍；後續 interface、line、router configuration modes 可擴充同一狀態機，無須預先碎片化。
+- Status：RESOLVED；只有當某個子模式形成跨 Unit 的獨立機制時，才重新評估拆分。
 
 ### Concept boundary: Passwords and secrets
 
-- [[Enable Password]] 與 [[Enable Secret]] 已拆成兩篇，因考試常比較兩者。
-- Reason：後續 volume 2 security chapter 會補充更多 secret hashing algorithms 與 device access control。
-- Status：REVIEW after security / device access control Unit。
+- [[Cisco IOS CLI#Privileged Access Protection|Enable Password]] 與 [[Cisco IOS CLI#Privileged Access Protection|Enable Secret]] 已整合為 CLI 核心頁中的比較區塊。
+- Reason：目前兩者主要價值是同一升權保護機制內的對比，不足以各自成為可重用核心。
+- Status：RESOLVED for Unit03；後續 security Unit 應建立較上層的 device access control / AAA 概念，而非恢復兩篇薄頁。
+
+### Concept boundary: Configuration states
+
+- Running Config 與 Startup Config 已整合為 [[IOS Configuration File#Running Configuration|Running Configuration]]、[[IOS Configuration File#Startup Configuration|Startup Configuration]] anchors。
+- Reason：兩者的知識價值來自 apply / save / boot lifecycle 的對照，分開後反而失去狀態轉換脈絡。
+- Status：RESOLVED；生命週期已記錄於 [[04_Maps/Cisco IOS CLI 與 Configuration 地圖|Cisco IOS CLI 與 Configuration 地圖]]。
 
 ### Concept boundary: Ethernet Frame fields
 
@@ -56,5 +63,4 @@ tags: #review #acting-ccna #unit-review
   - Switch 不修改 frames，只依 destination MAC forward/flood。
   - Ethernet frame / MAC address table / ARP 補強 Data Link Layer。
 - Reason：Chapter 6 提供 Unit02 尚未展開的 Layer 2 switching details。
-- Status：PARTIALLY RESOLVED；VLAN/STP/EtherChannel later。
-
+- Status：PARTIALLY RESOLVED；VLAN 與 STP 已由 Unit05／Unit06 補強，EtherChannel 尚待後續 Unit。

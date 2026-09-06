@@ -28,6 +28,10 @@ tags: #questions #acting-ccna #unit-questions #routing #interface
 6. [[Default Route]] 為什麼是 fallback，而不是永遠優先的 route？
 7. [[Next Hop]] 與 [[Exit Interface]] 的差異是什麼？什麼情境下同時指定兩者更清楚？
 8. [[Proxy ARP]] 為什麼需要 router routing table 中有通往目的地的 route 才能回覆？
+9. Routing table 中有 matching route，為什麼仍不足以證明 packet 能成功到達？
+10. Recursive、exit-interface-only 與 fully specified static routes，各自回答哪些 forwarding 問題？
+11. 為什麼 multiaccess Ethernet 上只指定 exit interface，可能讓 router 對許多 destination IP 執行 ARP？
+12. 如何區分「route 沒有安裝」、「route 沒被選中」與「route 已選中但 next hop 無法 forwarding」？
 
 ## Packet Life-cycle Reasoning
 

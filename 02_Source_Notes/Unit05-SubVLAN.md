@@ -14,26 +14,27 @@ tags: #source-note #unit #acting-ccna #subnetting #vlan #layer2 #layer3
 ## Key Ideas
 
 - [[Subnetting]] 是把較大的 IPv4 address block 切成較小 subnets；它延伸 Unit03 的 [[Network Portion and Host Portion]]、[[Prefix Length]]、[[Netmask]] 與 [[Usable IPv4 Address Range]]。
-- [[Borrowed Bits]] 是 subnetting 的核心：向 host portion 借 bits 變成 subnet/network portion，使 subnets 數量增加、每個 subnet 可用 hosts 數量下降。
+- [[Subnetting#Borrowing Bits|Borrowed Bits]] 是 subnetting 的核心：向 host portion 借 bits 變成 subnet/network portion，使 subnets 數量增加、每個 subnet 可用 hosts 數量下降。
 - [[FLSM]] 產生相同大小的 subnets，適合練習與需求一致的設計；[[VLSM]] 依不同 LAN/WAN host 需求分配不同大小 subnets，地址使用效率更好。
-- [[Subnet Five Attributes]] 把 subnetting 計算收斂成五個重點：network address、broadcast address、first usable、last usable、maximum hosts。
-- [[Magic Number Method]] 是快速找 subnet boundary 的計算方法，可用來處理 CCNA 常見 subnetting 題。
+- [[Subnetting#Five Subnet Attributes|Subnet Five Attributes]] 把 subnetting 計算收斂成五個重點：network address、broadcast address、first usable、last usable、maximum hosts。
+- [[Subnetting#Magic Number Method|Magic Number Method]] 是快速找 subnet boundary 的計算方法，可用來處理 CCNA 常見 subnetting 題。
 - Chapter 12 說明只有 Layer 3 subnetting 還不夠；如果 switches 仍在同一 [[Broadcast Domain]]，broadcast 仍會跨部門 flooding。
 - [[VLAN]] 把一台 physical switch 分成多個 virtual switches；每個 VLAN 是獨立 broadcast domain，讓 Layer 2 segmentation 與 Layer 3 subnets 對齊。
 - [[Access Port]] 屬於單一 VLAN；[[Trunk Port]] 可承載多個 VLAN，靠 [[IEEE 802.1Q Tag]] 標記 frame 屬於哪個 VLAN。
 - [[Native VLAN]] 的 frames 在 802.1Q trunk 上通常不加 tag；兩端 native VLAN 不一致會造成 [[Native VLAN Mismatch]]。
-- [[12-VLAN Question|VLAN Trunking Troubleshooting]] 把 port mode、native VLAN 與 allowed VLAN list 串成排錯流程：先確認 port role，再確認 VLAN 歸屬與 trunk 兩端設定。
+- [[04_Maps/VLAN Trunking Troubleshooting|VLAN Trunking Troubleshooting]] 把 port mode、native VLAN 與 allowed VLAN list 串成排錯流程：先確認 port role，再確認 VLAN 歸屬與 trunk 兩端設定。
 - 不同 VLAN/subnet 之間要通訊，需要 [[Inter-VLAN Routing]]；可用多條 router physical interfaces、[[12.4-Router on a Stick]]、或 [[12.4-Multilayer Switch]] + [[Switch Virtual Interface]] 實作。
 
 ## Core Concepts
 
+- [[IPv4 Addressing]]
 - [[Subnetting]]
-- [[Borrowed Bits]]
+- [[Subnetting#Borrowing Bits|Borrowed Bits]]
 - [[FLSM]]
 - [[VLSM]]
-- [[Subnet Five Attributes]]
+- [[Subnetting#Five Subnet Attributes|Subnet Five Attributes]]
 - [[Point-to-Point Subnet]]
-- [[Magic Number Method]]
+- [[Subnetting#Magic Number Method|Magic Number Method]]
 - [[VLAN]]
 - [[Layer 3 Segmentation]]
 - [[Layer 2 Segmentation]]
@@ -45,7 +46,7 @@ tags: #source-note #unit #acting-ccna #subnetting #vlan #layer2 #layer3
 - [[Allowed VLAN List]]
 - [[Native VLAN]]
 - [[Native VLAN Mismatch]]
-- [[12-VLAN Question|VLAN Trunking Troubleshooting]]
+- [[04_Maps/VLAN Trunking Troubleshooting|VLAN Trunking Troubleshooting]]
 - [[Inter-VLAN Routing]]
 - [[12.4-Router on a Stick]]
 - [[Subinterface]]
@@ -108,7 +109,7 @@ VLAN 隔離 traffic，但業務上不同部門仍可能需要互通。[[Inter-VL
   ↓ extended by
 [[Subnetting]]
   ↓ implemented through
-[[Borrowed Bits]]
+[[Subnetting#Borrowing Bits|Borrowed Bits]]
   ↓ design styles
 [[FLSM]] / [[VLSM]]
   ↓ Layer 3 segmentation
@@ -135,9 +136,9 @@ VLAN 隔離 traffic，但業務上不同部門仍可能需要互通。[[Inter-VL
 
 ## Prerequisites
 
-- [[Binary Number System]] before [[Borrowed Bits]] and subnet boundary calculation。
+- [[Binary Number System]] before [[Subnetting#Borrowing Bits|Borrowed Bits]] and subnet boundary calculation。
 - [[IPv4 Address]]、[[Prefix Length]]、[[Netmask]] before [[Subnetting]]。
-- [[IPv4 Network Address]]、[[IPv4 Broadcast Address]]、[[Usable IPv4 Address Range]] before [[Subnet Five Attributes]]。
+- [[IPv4 Network Address]]、[[IPv4 Broadcast Address]]、[[Usable IPv4 Address Range]] before [[Subnetting#Five Subnet Attributes|Subnet Five Attributes]]。
 - [[Switch]]、[[Ethernet Frame]]、[[Broadcast Domain]] before [[VLAN]]。
 - [[Router]]、[[Default Gateway]]、[[Routing Table]] before [[Inter-VLAN Routing]]。
 
@@ -160,6 +161,8 @@ VLAN 隔離 traffic，但業務上不同部門仍可能需要互通。[[Inter-VL
 ## Relationships
 
 重要關係已持久記錄於 [[04_Maps/Unit05-SubVLAN 知識地圖|Unit05：Subnetting 與 VLAN 知識地圖]] 的 `Relationships Added`。
+
+跨 Chapter 12–13 的 VLAN、trunk、inter-VLAN routing、DTP 與 VTP 結構，見 [[04_Maps/VLAN Knowledge Map|VLAN Knowledge Map]]。
 
 ## Contrast
 

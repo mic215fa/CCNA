@@ -19,7 +19,7 @@ tags: #vault/changelog #acting-ccna
 - 建立 [[06_review/Unit01-設備-線材 REVIEW|Unit01-設備-線材 REVIEW]] 作為 Unit01 的集中 REVIEW 紀錄，並將既有 Source Note、Concept Notes、Maps、Questions 中的 REVIEW 區塊改為指向此集中 Review 檔。
 - 更新 [[04_Maps/Unit01-設備與線材知識地圖|Unit01：設備與線材知識地圖]]，新增 `Relationships Added` 區塊，保存 Unit01 處理時新增的重要關係；已確認相關 wikilinks 皆可對應到現有筆記。
 - 依使用者要求更新 [[AGENTS|AGENTS.md]]：`03-Concepts` 中的 Concept Notes 應盡可能加入有助理解的來源圖片，圖片需來自 `00_Source` 或其 `images` 子目錄，並在圖片下方加入底標，標註來源 Chapter 與原始 Figure / caption；避免加入沒有理解價值的裝飾性圖片。
-- 依使用者要求，針對現有 `03-Concepts` 執行來源圖片規則；已為 20 篇 Concept Notes 中的 19 篇加入 `Source Figures` 區塊與來源底標，圖片皆來自 `00_Source/images`，並標註來源 Chapter 與 Figure。保留 [[03-Concepts/Network Standard|Network Standard]] 未加圖，因 Chapter 2 / Chapter 3 沒有直接說明該概念且具高理解價值的圖片。
+- 依使用者要求，針對現有 `03-Concepts` 執行來源圖片規則；已為 20 篇 Concept Notes 中的 19 篇加入 `Source Figures` 區塊與來源底標，圖片皆來自 `00_Source/images`，並標註來源 Chapter 與 Figure。保留 [[03-Concepts/待整理/Network Standard|Network Standard]] 未加圖，因 Chapter 2 / Chapter 3 沒有直接說明該概念且具高理解價值的圖片。
 - 已確認本次加入的 Concept 圖片路徑皆有效、每張圖皆有 `Source` / Chapter / Figure 底標，且相關 wikilinks 皆可對應到現有筆記。
 
 ### 2026-08-16
@@ -103,4 +103,3 @@ tags: #vault/changelog #acting-ccna
 - 新增 [[00_Source/Chapter 12.1 - 為什麼需要 VLAN|Chapter 12.1 - 為什麼需要 VLAN]]、[[00_Source/Chapter 12.2 - 設定 VLAN 與 Access Ports|Chapter 12.2 - 設定 VLAN 與 Access Ports]]、[[00_Source/Chapter 12.3 - 使用 Trunk Ports 連接 Switches|Chapter 12.3 - 使用 Trunk Ports 連接 Switches]]、[[00_Source/Chapter 12.4 - Inter-VLAN Routing|Chapter 12.4 - Inter-VLAN Routing]]。
 - 在 Chapter 12 原檔開頭新增 `Chapter 12 Section Index` callout；原完整章節內容保留不刪。
 - Section 檔保留原文、圖片連結、命令輸出與既有逐句繁體中文翻譯 callout。
-

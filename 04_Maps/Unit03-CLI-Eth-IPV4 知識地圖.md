@@ -32,13 +32,17 @@ flowchart TD
 
 ## CLI Relationships
 
+- Detailed reusable map：[[Cisco IOS CLI 與 Configuration 地圖]]
+
 - [[Cisco IOS CLI]] → used to configure and verify → [[Switch]] / [[Router]]
 - [[Cisco IOS CLI]] → organized by → [[Cisco IOS Command Mode]]
-- [[User EXEC Mode]] → `enable` → [[Privileged EXEC Mode]]
-- [[Privileged EXEC Mode]] → `configure terminal` → [[Global Configuration Mode]]
-- [[Global Configuration Mode]] → modifies → [[Running Config]]
-- [[Running Config]] → must be saved into → [[Startup Config]]
-- [[Enable Secret]] → safer replacement for → [[Enable Password]]
+- [[Cisco IOS Command Mode#User EXEC Mode|User EXEC Mode]] → `enable` → [[Cisco IOS Command Mode#Privileged EXEC Mode|Privileged EXEC Mode]]
+- [[Cisco IOS Command Mode#Privileged EXEC Mode|Privileged EXEC Mode]] → `configure terminal` → [[Cisco IOS Command Mode#Global Configuration Mode|Global Configuration Mode]]
+- [[Cisco IOS Command Mode#Global Configuration Mode|Global Configuration Mode]] → modifies → [[IOS Configuration File#Running Configuration|Running Config]]
+- [[IOS Configuration File#Running Configuration|Running Config]] → copied into for persistence → [[IOS Configuration File#Startup Configuration|Startup Config]]
+- [[Cisco IOS CLI#Privileged Access Protection|Enable Secret]] → safer replacement for → [[Cisco IOS CLI#Privileged Access Protection|Enable Password]]
+- [[Console Port]] + [[Rollover Cable]] + [[Terminal Emulator]] → provide local access to → [[Cisco IOS CLI]]
+- configuration accepted → does not necessarily prove → correct operational state or saved state
 
 ## Ethernet Switching Relationships
 
@@ -58,16 +62,16 @@ flowchart TD
 - [[Address Resolution Protocol]] → maps → [[IPv4 Address]] to [[MAC Address]]
 - ARP request → uses → [[Broadcast Frame]]
 - ARP reply → uses → [[Unicast Frame]]
-- Learned mapping → stored in → [[ARP Table]]
+- Learned mapping → stored in → [[Address Resolution Protocol#ARP Cache (ARP Table)|ARP Table]]
 - [[Ping]] → uses → [[ICMP]] echo request / reply
 - [[Ping]] → requires at least usable addressing and forwarding path, but success/failure still needs careful troubleshooting interpretation.
 
 ## IPv4 Relationships
 
 - [[IPv4 Header]] → contains → source/destination [[IPv4 Address]]
-- [[IPv4 Address]] → represented by → [[Dotted Decimal Notation]]
-- [[IPv4 Address]] → divided into four → [[Octet]]
-- [[Octet]] → depends on → [[Binary Number System]]
+- [[IPv4 Address]] → represented by → [[IPv4 Addressing#Representation|Dotted Decimal Notation]]
+- [[IPv4 Address]] → divided into four → [[IPv4 Addressing#Representation|Octet]]
+- [[IPv4 Addressing#Representation|Octet]] → depends on → [[Binary Number System]]
 - [[Prefix Length]] and [[Netmask]] → identify → [[Network Portion and Host Portion]]
 - Host portion all 0 → [[IPv4 Network Address]]
 - Host portion all 1 → [[IPv4 Broadcast Address]]
@@ -91,7 +95,7 @@ flowchart TD
 - [[Switch]] from Unit01 now connects to [[MAC Address Table]], [[MAC Address Learning]], [[Frame Forwarding]], and [[Frame Flooding]].
 - [[Router]] from Unit01 now connects to [[IPv4 Address]], [[IPv4 Header]], [[Time To Live]], and inter-LAN connectivity.
 - [[LAN]] from Unit01 is refined into [[Layer 2 Domain]] and [[Broadcast Domain]].
-- [[Bit and Byte]] from Unit01 now supports [[Binary Number System]], [[Octet]], and IPv4 conversion.
+- [[Bit and Byte]] from Unit01 now supports [[Binary Number System]], [[IPv4 Addressing#Representation|Octet]], and IPv4 conversion.
 - [[Straight-through and Crossover Cable]] remains distinct from [[Rollover Cable]]：Ethernet traffic cable vs console-management cable.
 
 ### Unit03 → Later Units
@@ -104,4 +108,3 @@ flowchart TD
 ## REVIEW
 
 - 集中 REVIEW 紀錄：[[06_review/Unit03-CLI-Eth-IPV4 REVIEW|Unit03-CLI-Eth-IPV4 REVIEW]]
-

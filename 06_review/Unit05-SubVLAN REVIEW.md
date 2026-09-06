@@ -13,9 +13,15 @@ tags: #review #acting-ccna #unit-review #subnetting #vlan
 
 ### Concept boundary: Subnetting calculation methods
 
-- [[Subnetting]]、[[Borrowed Bits]]、[[Subnet Five Attributes]]、[[Magic Number Method]] 已拆成概念。
-- Reason：這些是 CCNA 反覆出現的計算與推理骨架，但後續可能需要更多 worked examples，而不是再拆更多微概念。
-- Status：REVIEW when adding practice-oriented blue/yellow notes or subnetting drills。
+- [[Subnetting#Borrowing Bits|Borrowed Bits]]、[[Subnetting#Five Subnet Attributes|Subnet Five Attributes]]、[[Subnetting#Magic Number Method|Magic Number Method]] 已整合回 [[Subnetting]] 的機制段落，不再各自形成薄 Concept Note。
+- Reason：這些是同一 subnetting workflow 中的計算步驟；以 heading anchors 保留精確引用，比拆成微型概念更容易維護。
+- Status：Concept boundary 已解決；後續仍可在 practice-oriented blue/yellow notes 補 worked examples。
+
+### `/31` and `/32` exceptions
+
+- 一般 subnet 的 `2^host_bits - 2`、network address 與 broadcast address規則，不應機械套用到 `/31` point-to-point 與 `/32` host-route 情境。
+- Reason：目前核心筆記已標出例外，但 `/31` 的完整協定依據、平台行為與實務限制尚未在本 Unit 深入展開。
+- Status：REVIEW when processing WAN / point-to-point addressing；在此之前保留 [[Point-to-Point Subnet]] 於 `待整理/`。
 
 ### Concept boundary: FLSM and VLSM
 

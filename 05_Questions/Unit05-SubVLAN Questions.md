@@ -11,12 +11,14 @@ tags: #questions #acting-ccna #unit-questions #subnetting #vlan
 ## Subnetting Reasoning
 
 1. 為什麼 [[Subnetting]] 必須從 [[Network Portion and Host Portion]] 開始理解？
-2. 借用更多 [[Borrowed Bits]] 會同時帶來什麼好處與代價？
+2. 借用更多 [[Subnetting#Borrowing Bits|Borrowed Bits]] 會同時帶來什麼好處與代價？
 3. 為什麼 [[FLSM]] 容易計算，但在不同 LAN host 需求差很多時可能浪費 addresses？
 4. [[VLSM]] 為什麼通常要從最大 host 需求的 subnet 開始分配？
-5. [[Subnet Five Attributes]] 中，哪幾個值不能指派給一般 host？為什麼？
+5. [[Subnetting#Five Subnet Attributes|Subnet Five Attributes]] 中，哪幾個值不能指派給一般 host？為什麼？
 6. Point-to-point link 為什麼常用 /30 或 /31，而不是較大的 subnet？
-7. [[Magic Number Method]] 解決的是哪一類 subnetting 心算問題？
+7. [[Subnetting#Magic Number Method|Magic Number Method]] 解決的是哪一類 subnetting 心算問題？
+8. Magic number method 為什麼只是 binary boundary calculation 的捷徑，而不是獨立規則？
+9. 一份 VLSM plan 要如何系統性證明沒有 overlap，且每個 subnet 都有足夠 capacity？
 
 ## VLAN Reasoning
 

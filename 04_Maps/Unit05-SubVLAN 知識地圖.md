@@ -41,16 +41,43 @@ flowchart TD
 ## Subnetting Relationships
 
 - [[IPv4 Address]] → divided by → [[Prefix Length]] / [[Netmask]]
-- [[Network Portion and Host Portion]] → extended through → [[Borrowed Bits]]
-- [[Borrowed Bits]] → creates → [[Subnetting]]
+- [[Network Portion and Host Portion]] → extended through → [[Subnetting#Borrowing Bits|Borrowed Bits]]
+- [[Subnetting#Borrowing Bits|Borrowed Bits]] → creates → [[Subnetting]]
 - Borrowing more bits → increases subnet count but decreases host capacity per subnet
 - [[FLSM]] → creates equal-size subnets
 - [[VLSM]] → creates variable-size subnets according to host requirements
-- [[Subnet Five Attributes]] → calculated for each subnet
+- [[Subnetting#Five Subnet Attributes|Subnet Five Attributes]] → calculated for each subnet
 - [[Point-to-Point Subnet]] → often uses /30 or /31 to conserve address space
-- [[Magic Number Method]] → helps locate subnet boundaries quickly
+- [[Subnetting#Magic Number Method|Magic Number Method]] → helps locate subnet boundaries quickly
 
 ## VLAN Relationships
+
+### VLAN Concept Structure
+
+```mermaid
+flowchart TD
+  V["VLAN"] --> A["Access Port"]
+  V --> T["Trunk Port"]
+  T --> Q["IEEE 802.1Q Tag"]
+  T --> N["Native VLAN"]
+  T --> L["Allowed VLAN List"]
+  V --> I["Inter-VLAN Routing"]
+  I --> R["Router on a Stick"]
+  I --> M["Multilayer Switch"]
+  V --> D["DTP"]
+  V --> P["VTP"]
+```
+
+- [[VLAN]] → implemented at the edge by → [[Access Port]]
+- [[VLAN]] → extended across infrastructure links by → [[Trunk Port]]
+- [[Trunk Port]] → preserves VLAN identity with → [[IEEE 802.1Q Tag]]
+- [[Trunk Port]] → assigns untagged traffic through → [[Native VLAN]]
+- [[Trunk Port]] → limits VLAN propagation through → [[Allowed VLAN List]]
+- [[VLAN]] isolation → creates the need for → [[Inter-VLAN Routing]]
+- [[Inter-VLAN Routing]] → can be implemented by → [[12.4-Router on a Stick]] or [[12.4-Multilayer Switch]]
+- [[13-Dynamic Trunking Protocol]] → negotiates → access/trunk operational mode
+- [[13-VLAN Trunking Protocol]] → synchronizes → VLAN database across participating switches
+- DTP/VTP → automate control state but are not required for → VLAN data-plane forwarding
 
 - [[Layer 3 Segmentation]] → uses → [[Subnetting]]
 - Layer 3-only segmentation on shared switches → still leaves one → [[Broadcast Domain]]
@@ -82,7 +109,7 @@ flowchart TD
   F -- "Yes" --> H["Continue with VLAN existence and forwarding checks"]
 ```
 
-- Workflow note：[[12-VLAN Question|VLAN Trunking Troubleshooting]]
+- Workflow note：[[04_Maps/VLAN Trunking Troubleshooting|VLAN Trunking Troubleshooting]]
 
 ## Inter-VLAN Routing Relationships
 
@@ -102,7 +129,7 @@ flowchart TD
 
 - [[Subnetting]] supplies the Layer 3 network boundaries that [[VLAN]] design should mirror at Layer 2.
 - [[VLSM]] can allocate right-sized subnets to departments or sites; Chapter 12 then maps those departments/subnets into VLANs.
-- [[Subnet Five Attributes]] provides the default-gateway address candidates used when configuring router interfaces, ROAS subinterfaces, or SVIs.
+- [[Subnetting#Five Subnet Attributes|Subnet Five Attributes]] provides the default-gateway address candidates used when configuring router interfaces, ROAS subinterfaces, or SVIs.
 
 ### Unit03 → Unit05
 

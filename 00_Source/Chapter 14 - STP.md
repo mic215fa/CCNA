@@ -1,5 +1,12 @@
 ## Spanning Tree Protocol
 
+> [!map] Chapter 14 Section Index
+> - [[Chapter 14.1 - The need for STP|14.1 The need for STP]]
+> - [[Chapter 14.2 - How STP works|14.2 How STP works]]
+> - [[Chapter 14.3 - The STP algorithm|14.3 The STP algorithm]]
+> - [[Chapter 14.4 - STP port states and timers|14.4 STP port states and timers]]
+> - [[Chapter 14.5 - PortFast and BPDU Guard|14.5 PortFast and BPDU Guard]]
+
 ## This chapter covers
 
 - How Layer 2 loops lead to broadcast storms
