@@ -24,7 +24,7 @@ NOTE: A standard switch that only forwards frames can be called a Layer 2 switch
 Multilayer switches perform inter-VLAN routing using virtual interfaces called switch virtual interfaces (SVIs). Each SVI is an interface on the multilayer switch's built-in
 router, and hosts in each VLAN use the IP address of their VLAN's SVI as their default gateway.
 
-> [!translation] 逐句繁體中文翻譯
+> [!important] 逐句繁體中文翻譯
 > - Multilayer switches 使用稱為 switch virtual interfaces（SVIs）的 virtual interfaces 執行 inter-VLAN routing。
 > - 每個 SVI 都是 multilayer switch 內建 router 上的一個 interface，而每個 VLAN 中的 hosts 會使用自己 VLAN 的 SVI IP address 作為 default gateway。
 
@@ -74,22 +74,24 @@ For an SVI to function, it must be in an up/up state (referring to the Status an
 > - SVI 要能運作，必須處於 up/up state，也就是 show ip interface brief 輸出中的 Status 與 Protocol 欄位都 up，這點和 physical interface 一樣。
 > - SVI 要處於 up/up state 有四個 requirements；如果你需要排查無法到達 up/up state 的 SVI，可參考這份清單。
 
-1 The VLAN associated with the SVI must exist on the switch (i.e., created with the vlan vlan-idcommand).
+==1 The VLAN associated with the SVI must exist on the switch (i.e., created with the vlan vlan-idcommand).==
+
 2 The switch must have at least one of the following:
-    A An access port associated with the VLAN (using the switchport access vlan command) in an up/up state.
+    ==A An access port associated with the VLAN (using the switchport access vlan command) in an up/up state.==
 
-B A trunk port that allows the VLAN (using the switchport trunk allowed vlan command) in an up/up state.
-3 The VLAN must be enabled (must not have the shutdown command applied).
-4 The SVI must be enabled (must not have the shutdown command applied).
+	==B A trunk port that allows the VLAN (using the switchport trunk allowed vlan command) in an up/up state==
+==3 The VLAN must be enabled (must not have the shutdown command applied).==
 
-> [!translation] 逐句繁體中文翻譯
-> - B：有一個允許該 VLAN 的 trunk port，使用 switchport trunk allowed vlan command，且處於 up/up state。
-> - 第三，該 VLAN 必須 enabled，也就是沒有套用 shutdown command。
-> - 第四，該 SVI 必須 enabled，也就是沒有套用 shutdown command。
+==4 The SVI must be enabled (must not have the shutdown command applied).==
+
+> [!translation] ==逐句繁體中文翻譯==
+> ==- B：有一個允許該 VLAN 的 trunk port，使用 switchport trunk allowed vlan command，且處於 up/up state。==
+> ==- 第三，該 VLAN 必須 enabled，也就是沒有套用 shutdown command。==
+> ==- 第四，該 SVI 必須 enabled，也就是沒有套用 shutdown command。==
 
 EXAM TIP Make sure you understand the difference between a VLAN and an SVI. A VLAN is a Layer 2 concept-a virtual broadcast domain that divides up a switch. An SVI is a virtual Layer 3 interface that is associated with a VLAN. To create a VLAN, use the vlan command. To create an SVI, use the interface vlan command.
 
-> [!translation] 逐句繁體中文翻譯
+> [!important] 逐句繁體中文翻譯
 > - EXAM TIP：請務必理解 VLAN 與 SVI 的差異。
 > - VLAN 是 Layer 2 concept，也就是分割 switch 的 virtual broadcast domain。
 > - SVI 是與 VLAN 關聯的 virtual Layer 3 interface。
