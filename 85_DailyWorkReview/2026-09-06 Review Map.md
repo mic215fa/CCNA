@@ -45,6 +45,8 @@ VLAN
 
 把 Access Port、Trunk、802.1Q 與 routing 放到正確分支。
 
+![[Pasted image 20260907205509.png]]
+
 **Verify — 3 minutes**
 
 - Native VLAN 與 Default VLAN 為什麼不是同一概念？
@@ -70,14 +72,337 @@ VLAN
 
 從空 MAC table、空 ARP cache 開始，口述同 subnet 兩台 hosts 第一次 ping 的 frame sequence。
 
+假設：
+
+- Host A：`192.168.1.10/24`，MAC = `AA:AA:AA:AA:AA:AA`
+    
+- Host B：`192.168.1.20/24`，MAC = `BB:BB:BB:BB:BB:BB`
+    
+- 兩台接在同一台 Layer 2 Switch
+    
+- 一開始：
+    
+    - A、B 的 ARP cache 都是空的
+        
+    - Switch MAC address table 也是空的
+        
+- A 第一次執行：
+    
+
+```text
+ping 192.168.1.20
+```
+
+整個過程要分成 **ARP 階段** 與 **ICMP 階段** 來看。
+
+### 1. A 先判斷 B 是否在同 subnet
+
+A 用自己的 `/24` mask 計算：
+
+```text
+A: 192.168.1.10/24
+B: 192.168.1.20/24
+
+Network = 192.168.1.0/24
+```
+
+所以 A 知道：
+
+> B 跟我在同一個 subnet，不需要送給 Default Gateway，可以直接送給 B。
+
+但是 A 此時只有 B 的 IP：
+
+```text
+192.168.1.20
+```
+
+卻不知道 B 的 MAC。
+
+因此現在 **還不能送 ICMP Echo Request**，必須先 ARP。
+
+---
+
+## 2. Frame #1：ARP Request
+
+A 發出 Ethernet broadcast：
+
+```text
+Ethernet
+Src MAC = AA:AA:AA:AA:AA:AA
+Dst MAC = FF:FF:FF:FF:FF:FF
+Type    = ARP
+
+ARP
+Who has 192.168.1.20?
+Tell 192.168.1.10
+```
+
+可以口述成：
+
+> A 想 ping B，但不知道 B 的 MAC，因此送出 ARP Request。ARP Request 使用 Ethernet broadcast，目的 MAC 是 FF:FF:FF:FF:FF:FF。
+
+Switch 收到這個 frame 時，第一件事不是看 destination，而是先學 **source MAC**：
+
+```text
+MAC Table
+
+AA:AA:AA:AA:AA:AA → Port 1
+```
+
+接著 Switch 發現 destination 是 broadcast，所以：
+
+```text
+Flood 到除了 ingress port 之外的所有 ports
+```
+
+因此 B 收到 ARP Request。
+
+---
+
+## 3. Frame #2：ARP Reply
+
+B 查看 ARP Request：
+
+```text
+Who has 192.168.1.20?
+```
+
+發現：
+
+> 192.168.1.20 就是我。
+
+因此 B 回覆 A：
+
+```text
+Ethernet
+Src MAC = BB:BB:BB:BB:BB:BB
+Dst MAC = AA:AA:AA:AA:AA:AA
+Type    = ARP
+
+ARP Reply
+192.168.1.20 is at BB:BB:BB:BB:BB:BB
+```
+
+注意：
+
+> **ARP Reply 通常是 unicast，不是 broadcast。**
+
+Switch 收到 B 的 frame，又從 source MAC 學到：
+
+```text
+BB:BB:BB:BB:BB:BB → Port 2
+```
+
+所以此時 MAC table 已經變成：
+
+```text
+MAC Address              Port
+--------------------------------
+AA:AA:AA:AA:AA:AA       Port 1
+BB:BB:BB:BB:BB:BB       Port 2
+```
+
+因為 Switch 已經知道 A 在 Port 1，所以 ARP Reply 直接 unicast 給 A。
+
+A 收到後，把資料寫入 ARP cache：
+
+```text
+192.168.1.20 → BB:BB:BB:BB:BB:BB
+```
+
+---
+
+# 4. Frame #3：ICMP Echo Request
+
+現在 A 終於知道：
+
+```text
+IP 192.168.1.20
+        ↓ ARP
+MAC BB:BB:BB:BB:BB:BB
+```
+
+所以才真正送 ping：
+
+```text
+Ethernet
+Src MAC = AA:AA:AA:AA:AA:AA
+Dst MAC = BB:BB:BB:BB:BB:BB
+
+IPv4
+Src IP  = 192.168.1.10
+Dst IP  = 192.168.1.20
+
+ICMP
+Echo Request
+```
+
+Switch 查 MAC table：
+
+```text
+BB:BB:BB:BB:BB:BB → Port 2
+```
+
+因此直接 unicast 到 B。
+
+---
+
+# 5. Frame #4：ICMP Echo Reply
+
+B 收到 Echo Request 後回覆：
+
+```text
+Ethernet
+Src MAC = BB:BB:BB:BB:BB:BB
+Dst MAC = AA:AA:AA:AA:AA:AA
+
+IPv4
+Src IP  = 192.168.1.20
+Dst IP  = 192.168.1.10
+
+ICMP
+Echo Reply
+```
+
+Switch 查：
+
+```text
+AA:AA:AA:AA:AA:AA → Port 1
+```
+
+所以直接送回 A。
+
+A 收到後：
+
+```text
+Reply from 192.168.1.20 ...
+```
+
+第一次 ping 完成。
+
+---
+
+## 把整個 sequence 壓縮成 CCNA 最重要的圖
+
+```text
+Host A                 Switch                 Host B
+192.168.1.10                                  192.168.1.20
+MAC AA                                        MAC BB
+
+ARP cache = empty       MAC table = empty     ARP cache = empty
+   |                        |                      |
+   |--- ARP Request ------->|                      |
+   |    Src MAC = AA        |                      |
+   |    Dst MAC = FF:FF...  |                      |
+   |                        | learn AA → Port 1    |
+   |                        |--- flood ----------->|
+   |                        |                      |
+   |                        |<--- ARP Reply --------|
+   |                        |    Src MAC = BB      |
+   |                        |    Dst MAC = AA      |
+   |                        | learn BB → Port 2    |
+   |<--- ARP Reply ---------|                      |
+   |                        |                      |
+   | ARP cache:             |                      |
+   | 192.168.1.20 → BB      |                      |
+   |                        |                      |
+   |--- ICMP Echo Request ->|--------------------->|
+   |    Src MAC = AA        |     unicast          |
+   |    Dst MAC = BB        |                      |
+   |    Src IP  = .10       |                      |
+   |    Dst IP  = .20       |                      |
+   |                        |                      |
+   |<-- ICMP Echo Reply ----|<---------------------|
+   |    Src MAC = BB        |     unicast          |
+   |    Dst MAC = AA        |                      |
+   |                        |                      |
+ ping success
+```
+
+最適合 CCNA 口試式記憶的是這一句：
+
+> **同 subnet 第一次 ping：先用 ARP broadcast 找到目的主機的 MAC；Switch 同時從 source MAC 學習 MAC table；得到 MAC 後，再用 unicast 傳送 ICMP Echo Request / Echo Reply。**
+
+還有一個非常容易考的細節：**Switch 學 MAC 是看 Source MAC，不是 Destination MAC；Host 的 ARP table 則是 IP → MAC 的對照。**
+
+
+
 **Verify — 3 minutes**
 
-- Switch 為什麼從 source MAC 學習，卻用 destination MAC 做 forwarding decision？
-- ARP table 正確時，switch 為什麼仍可能 flood 第一個 frame？
+- === Switch 為什麼從 source MAC 學習，卻用 destination MAC 做 forwarding decision？ ===
+
+CCNA 可以直接記一句：
+
+> **Switch learns where a device is from the source MAC, and decides where a frame goes from the destination MAC.**
+
+更精確地說，Switch 的核心邏輯就是：
+
+```
+Frame enters port X
+       |
+       v
+Read Source MAC
+       |
+       +----> Update MAC table:
+       |      Source MAC → Port X
+       |
+       v
+Read Destination MAC
+       |
+       v
+Look up MAC table
+       |
+   +---+------------------+
+   |                      |
+Known                  Unknown
+   |                      |
+Forward                Flood
+to matching port
+```
+
+其中最值得理解的是：**Source MAC 是 Switch「已經看到的事實」；Destination MAC 是 Switch「接下來要解決的方向」。**
+
+-  === ARP table 正確時，switch 為什麼仍可能 flood 第一個 frame？ ===
+
+最重要的區分是：
+
+|Table|誰使用|用途|
+|---|---|---|
+|ARP table|Host / Router|`IP → MAC`|
+|MAC address table|Switch|`MAC → Port`|
+
+因此：
+
+> **ARP table 正確 ≠ Switch 知道 destination MAC 在哪個 port。**
+
+這也是 CCNA 很重要的一個陷阱題。
+
+你可以把它記成：
+
+```
+ARP answers:
+「我要送給哪個 MAC？」
+
+MAC table answers:
+「這個 MAC 在哪個 port？」
+```
+
+所以即使 Host 已經知道「我要送給 BB」，Switch 仍可能不知道「BB 在 Port 2」，因此第一個 frame 還是可能被 flood。
+
 
 **Output — 1 minute**
 
-寫出「Host ARP table」與「Switch MAC table」各自回答的問題。
+=== 寫出「Host ARP table」與「Switch MAC table」各自回答的問題。 ===
+
+可以直接這樣記：
+
+- **Host ARP table 回答：**  
+    「這個 **IP address 對應哪一個 MAC address？**」
+- **Switch MAC table 回答：**  
+    「這個 **MAC address 位於哪一個 switch port？**」
+
+ARP table：IP → MAC
+MAC table：MAC → Port
 
 ## Unit 3 — IPv4 Addressing and Subnetting（15 minutes）
 
